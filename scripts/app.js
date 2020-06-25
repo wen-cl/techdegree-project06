@@ -76,6 +76,31 @@ overlayDiv.addEventListener('click', (e)=>{
 
 });
 
+qwerty.addEventListener('click', (e)=>{
+    if (overlayDiv.style.display === 'none'){
+        if (e.target.type === 'submit'){
+            const button = e.target;
+            if(!button.disabled){
+                button.className = 'chosen';
+                button.disabled = true;
+                const letterFound = checkLetter(button.textContent);
+                console.log();
+                if(!letterFound && missed <= 5){
+                    missed++;
+                    const ol = document.querySelector('#scoreboard ol');
+                    const firstChild = ol.firstElementChild;
+                    ol.removeChild(firstChild);
+                    const li = document.createElement('li');
+                    li.className = 'tries';
+                    li.innerHTML = `<img src="images/lostHeart.png" height="35px" width="30px">`;
+                    ol.appendChild(li);
+                }
+            }
+            checkWin();    
+        }
+    }
+});
+
 document.addEventListener('keyup', (e)=>{
     if (overlayDiv.style.display === 'none'){
         const buttons = qwerty.getElementsByTagName('button');
